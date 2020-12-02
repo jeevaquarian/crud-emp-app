@@ -16,6 +16,7 @@
                         <th>Name</th>
                         <th>Age</th>
                         <th>Email</th>
+                       <th>isActive</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -24,6 +25,7 @@
                         <td>{{employee.name}}</td>
                         <td>{{employee.age}}</td>
                         <td>{{employee.email}}</td>
+                        <td>{{employee.isActive}}</td>
                         <td>
                         <b-button  class="btn btn-info delete-btn" @click="deleteEmployee(employee)">Delete</b-button>
                         </td>
@@ -32,6 +34,7 @@
                         <td><input type="text" v-model="employeeobj.name" class="form-control"></td>
                         <td><input type="text" v-model="employeeobj.age" class="form-control"></td>
                         <td><input type="text" v-model="employeeobj.email" class="form-control"></td>
+                     <td> <input type="checkbox" id="checkbox" v-model="employeeobj.isActive"></td>
                         <td>
                         <b-button  class="delete-btn" @click="addNewEmployee">Submit</b-button>
                         </td>
@@ -49,7 +52,8 @@ export default {
         return {employeeobj:{
             name:'',
             age:'',
-            email:''
+            email:'',
+            isActive:false
         },
         showNewRow:false}
 
@@ -64,7 +68,10 @@ this.showNewRow=true;
         addNewEmployee(){
            if(this.employeeobj!=''){
            this.$store.dispatch('NEW_Employee',this.employeeobj);
+              this.isActive=false;
            this.showNewRow=false;
+           this.employeeobj={};
+           
 
 
            }
