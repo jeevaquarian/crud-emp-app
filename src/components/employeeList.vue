@@ -13,11 +13,7 @@
   <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Email</th>
-                       <th>isActive</th>
-                        <th>Actions</th>
+                        <th v-for="(emp,index) in Employeee" :key="index">{{emp}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +42,7 @@
 </div>
 </template>
 <script>
+import {employeeconst} from '../constants/employee'
 export default {
     name:'employeeList',
     data(){
@@ -55,7 +52,8 @@ export default {
             email:'',
             isActive:false
         },
-        showNewRow:false}
+        showNewRow:false,
+        Employeee:employeeconst}
 
     },
     methods:{
