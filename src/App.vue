@@ -1,27 +1,28 @@
 <template>
   <div id="app">
     <div>
-    <Header />
+      <Header />
     </div>
     <div class="container">
       <div class="row">
-    <div class="mt-5 mb-3 col-md-12">
-    <employeeList />
-  </div>
-  </div>
-  </div>
+        <div class="mt-5 mb-3 col-md-12">
+          <employeeList />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Header from './components/Header' 
-import employeeList from './components/employeeList'
+import Header from "./components/Header";
+import employeeList from "./components/employeeList";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Header,employeeList
-  }
-}
+    Header,
+    employeeList,
+  },
+};
 </script>
 
 <style>

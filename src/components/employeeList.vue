@@ -4,12 +4,25 @@
         <div class="table-wrapper">
         <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div>
                     <div class="col-sm-4">
+                        <div class="filter-btn">
+             <b-button-group> 
+  <b-button pill :class="{selected:filter==='all'}" @click="changeFilter('all')">All</b-button>
+  <b-button pill  :class="{selected:filter==='active'}"  @click="changeFilter('active')" >Active</b-button>
+  <b-button pill  :class="{selected:filter==='non-active'}" @click="changeFilter('non-active')" >Non-Active</b-button>
+  </b-button-group>
+                        </div>
+                    </div>
+                        <div class="col-sm-4 btn-add">
+                        <input type="text"  placeholder="search.."/>
+                    </div>
+                    <div class="col-sm-4 btn-add">
                         <button type="button"  @click="addNewRow" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
                     </div>
                 </div>
             </div>
+            <table>
+                <tr><td><form @submit.prevent="addNewEmployee" novalidate="true">
   <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -17,26 +30,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(employee,index) in getEmployeelist" :key="index">
+                    <tr v-for="(employee,index) in get_filtered_employees" :key="index">
                         <td>{{employee.name}}</td>
                         <td>{{employee.age}}</td>
                         <td>{{employee.email}}</td>
                         <td>{{employee.isActive}}</td>
                         <td>
-                        <b-button  class="btn btn-info delete-btn" @click="deleteEmployee(employee)">Delete</b-button>
+                        <b-button  class="btn btn-info delete-btn" title="delete" @click="deleteEmployee(employee)"><i class="material-icons">&#xE872;</i></b-button>
                         </td>
                     </tr>   
                                 <tr v-if="showNewRow">
                         <td><input type="text" v-model="employeeobj.name" class="form-control"></td>
-                        <td><input type="text" v-model="employeeobj.age" class="form-control"></td>
-                        <td><input type="text" v-model="employeeobj.email" class="form-control"></td>
+                        <td><input type="number" v-model="employeeobj.age" class="form-control"></td>
+                        <td><input  type="email" v-model="employeeobj.email" class="form-control"></td>
                      <td> <input type="checkbox" id="checkbox" v-model="employeeobj.isActive"></td>
                         <td>
-                        <b-button  class="delete-btn" @click="addNewEmployee">Submit</b-button>
+                        <b-button  type="submit" title="Add" class="delete-btn"><i class="material-icons">&#xE03B;</i></b-button>
                         </td>
                     </tr>  
                 </tbody>
             </table>
+             </form></td></tr>
+             </table>
         </div>
         </div>
 </div>
@@ -63,13 +78,19 @@ export default {
         addNewRow(){
 this.showNewRow=true;
         },
+        changeFilter(value){
+            this.$store.dispatch('New_filter',value)
+
+        },
+    
         addNewEmployee(){
-           if(this.employeeobj!=''){
+           if(this.employeeobj!='' && this.employeeobj.name!='' && this.employeeobj.age!='' && this.employeeobj.email!='' ){
+               if(!this.employeeobj.isActive){
+                   this.employeeobj.isActive=false;
+               }
            this.$store.dispatch('NEW_Employee',this.employeeobj);
-              this.isActive=false;
            this.showNewRow=false;
            this.employeeobj={};
-           
 
 
            }
@@ -78,7 +99,14 @@ this.showNewRow=true;
 computed:{
     getEmployeelist(){
        return this.$store.getters.get_employees;
+    },
+    get_filtered_employees(){
+        return this.$store.getters.get_filtered_list;
+    },
+    filter(){
+        return this.$store.state.filter;
     }
+
 }
 }
 </script>
@@ -88,8 +116,14 @@ body {
     background: #F5F7FA;
     font-family: 'Open Sans', sans-serif;
 }
+thead{
+        background-color: aquamarine;
+}
+tbody{
+        background-color: aliceblue;
+}
 .table-wrapper {
-    width: 700px;
+    width: 80%;
     margin: 30px auto;
     background: #fff;
     padding: 20px;	
@@ -176,4 +210,11 @@ table.table .form-control.error {
 table.table td .add {
     display: none;
 }
+.filter-btn{
+   position: fixed;
+}
+.selected {
+     background-color: black;
+}
+
 </style>
