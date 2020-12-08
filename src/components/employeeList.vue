@@ -4,7 +4,7 @@
         <div class="table-wrapper">
         <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-8">
                         <div class="filter-btn">
              <b-button-group> 
   <b-button pill :class="{selected:filter==='all'}" @click="changeFilter('all')">All</b-button>
@@ -12,9 +12,6 @@
   <b-button pill  :class="{selected:filter==='non-active'}" @click="changeFilter('non-active')" >Non-Active</b-button>
   </b-button-group>
                         </div>
-                    </div>
-                        <div class="col-sm-4 btn-add">
-                        <input type="text"  placeholder="search.."/>
                     </div>
                     <div class="col-sm-4 btn-add">
                         <button type="button"  @click="addNewRow" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
