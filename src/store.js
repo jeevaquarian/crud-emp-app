@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -17,14 +17,14 @@ export default new Vuex.Store({
             return state.employees
         },
         get_filtered_list(state){
-            if(state.filter==='all'){
+            if(state.filter==="all"){
                 return state.employees;
             } 
-            else if(state.filter==='active'){
+            else if(state.filter==="active"){
                 return state.employees.filter(employee=>employee.isActive);
 
             }
-            else if(state.filter==='non-active'){
+            else if(state.filter==="non-active"){
                 return state.employees.filter(employee=>!employee.isActive);
 
             }
@@ -51,15 +51,15 @@ export default new Vuex.Store({
     },
     actions:{
         NEW_Employee({commit},payload){
-            commit('New_Employee',payload)
+            commit("New_Employee",payload)
         },
         Delete_Todo({commit},employee){
-            commit('Delete_Employee',employee)
+            commit("Delete_Employee",employee)
 
         },
         
         New_filter({commit},newfiltervalue){
-            commit('New_Filter',newfiltervalue)
+            commit("New_Filter",newfiltervalue)
 
         },
 
